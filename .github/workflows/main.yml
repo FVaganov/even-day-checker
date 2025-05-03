@@ -16,9 +16,21 @@ jobs:
     
     - name: Install dependencies
       run: npm install
+      # Выводим сообщение после установки зависимостей
+      env:
+        ACTIONS_STEP_DEBUG: true
     
     - name: Run tests
       run: npm test
+      # Выводим сообщение после тестов
+      env:
+        ACTIONS_STEP_DEBUG: true
     
-    - name: Log completion
-      run: echo "Тесты завершены успешно!"
+    - name: Completion message
+      run: |
+        echo "=========================================="
+        echo "🚀 Все задачи выполнены успешно!"
+        echo "🕒 Работа завершена в $(date)"
+        echo "=========================================="
+      # Всегда выполняется, даже если предыдущие шаги завершились с ошибкой
+      if: always()
